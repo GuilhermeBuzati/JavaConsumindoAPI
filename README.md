@@ -193,6 +193,8 @@ public Titulo(TituloOmdb meuTituloOmdb) {
 }
 ```
 
+### ✅ Vantagens do record:
+
 | Benefício              | Descrição                                                             |
 |------------------------|------------------------------------------------------------------------|
 | ✂️ Código conciso      | Reduz muito o código "boilerplate" (getters, construtores etc.)       |
