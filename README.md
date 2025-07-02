@@ -201,3 +201,115 @@ public Titulo(TituloOmdb meuTituloOmdb) {
 | 🔒 Imutabilidade       | Os atributos são automaticamente `final`, favorecendo segurança       |
 | 🔗 Ideal para JSON     | Ótima escolha para representar dados recebidos de APIs                |
 | 💡 Integração com Gson | Funciona com `@SerializedName` e outras anotações                     |
+
+---
+
+## 🐛 Stack Trace – Rastreando Exceções em Java
+
+### 📌 O que é?
+
+- Um stack trace (rastreamento de pilha) é a mensagem de erro exibida pelo Java quando ocorre uma exceção (Exception ou Error).
+- Mostra a cadeia de chamadas de métodos até o ponto onde o erro aconteceu.
+
+### 🧱 Exemplo de stack trace:
+
+```java
+Exception in thread "main" java.lang.NullPointerException
+  at com.exemplo.Main.main(Main.java:5)
+```
+
+### Interpretação:
+- java.lang.NullPointerException: tipo da exceção
+- com.exemplo.Main.main(Main.java:5): o erro aconteceu no método main da classe Main, linha 5
+
+### 🔍 Como ler um stack trace:
+
+| Parte do Stack Trace                     | O que indica                                  |
+|------------------------------------------|-----------------------------------------------|
+| Tipo da exceção (`NullPointerException`) | O tipo de erro ocorrido                       |
+| Caminho da classe (`com.exemplo.Main`)   | Onde o erro aconteceu                         |
+| Método (`main`)                          | Qual método estava sendo executado            |
+| Linha (`Main.java:5`)                    | Linha exata do código onde a exceção surgiu   |
+
+
+### ✅ Dicas:
+
+- O primeiro item do stack trace normalmente é o ponto exato do erro.
+- Os itens abaixo mostram a cadeia de chamadas anteriores, úteis para entender o caminho até o erro.
+- Leia de cima para baixo!
+
+---
+
+## 🛡️ try-catch – Tratamento de Exceções em Java
+
+### 📌 O que é?
+
+- O bloco try-catch permite capturar exceções que podem ocorrer em tempo de execução, evitando que a aplicação quebre de forma inesperada.
+- Útil para lidar com situações como: leitura de arquivos, chamadas HTTP, parsing, etc.
+
+### 🧱 Sintaxe básica:
+
+```java
+try {
+    // Código que pode gerar exceção
+    int resultado = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Erro: divisão por zero.");
+}
+```
+> O Java entra no bloco catch se uma exceção do tipo ArithmeticException for lançada.
+
+### 🧠 Dicas práticas:
+
+| Bloco     | Função                                                                 |
+|-----------|------------------------------------------------------------------------|
+| `try`     | Onde você coloca o código que pode lançar uma exceção                  |
+| `catch`   | Captura e trata a exceção (pode haver múltiplos blocos `catch`)        |
+| `finally` | (Opcional) Executado **sempre**, mesmo que haja erro ou não            |
+
+
+### 🔁 Exemplo com finally:
+
+```java
+try {
+    lerArquivo();
+} catch (IOException e) {
+    System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+} finally {
+    System.out.println("Finalizando operação.");
+}
+```
+
+---
+
+## ❗ Exceções vs Erros em Java
+
+### 📌 O que é uma Exceção (Exception)?
+
+- São eventos anormais esperados que podem acontecer durante a execução do programa.
+- Exemplo: tentar acessar um índice inexistente de uma lista, abrir um arquivo que não existe, divisão por zero, etc.
+- Podem (e devem) ser tratadas com try-catch.
+
+### 📌 O que é um Erro (Error)?
+
+- São problemas graves que ocorrem fora do controle da aplicação e geralmente não devem ser tratados diretamente.
+- Exemplo: OutOfMemoryError, StackOverflowError, falha na JVM.
+- Normalmente indicam falhas em nível de sistema.
+
+### 🧬 Hierarquia simplificada:
+
+```php
+Throwable
+├── Error            ← Problemas graves (JVM, memória, etc.)
+└── Exception
+    ├── CheckedException ← Deve ser tratada (ex: IOException)
+    └── RuntimeException ← Pode ser tratada (ex: NullPointerException)
+
+```
+
+### ✅ Resumo:
+
+| Tipo        | Pode ser tratado? | Quando ocorre                      | Exemplo                      |
+|-------------|-------------------|------------------------------------|------------------------------|
+| `Exception` | Sim               | Durante execução normal do app     | `IOException`, `SQLException`|
+| `Error`     | Não (em geral)    | Problemas graves na JVM ou sistema | `OutOfMemoryError`           |
